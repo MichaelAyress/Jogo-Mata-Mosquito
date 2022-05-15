@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="estilo.css">
+    <script src="jogo.js"></script>
+    
 </head>
 <body onresize ="ajustaTamanhoPalcoJogo()">
 
@@ -17,16 +19,20 @@
 
         </div>
 
-        <div class="cronometro">tempo restante: ? </div>
-
+        <div class="cronometro">tempo restante: <span id ="cronometro"></span></div>
 
     </div>
+    
+    <script>
 
+        //adicionando nosso cronometro
+        document.getElementById('cronometro').innerHTML = tempo
+        //executando a função posicaoRandomica a cada 1 segundo
+        var criaMosquito =  setInterval(function() {
+            posicaoRandomica()
+        }, criaMosquitoTempo)
+    </script>
 
     
-    
-    
-
-    <script src="jogo.js"></script>
 </body>
 </html>

@@ -1,6 +1,25 @@
 var altura = 0
 var largura = 0
 var vidas = 1
+var tempo = 15
+var nivel = window.location.search // search recupera tudo que está a direita do ? 
+nivel = nivel.replace('?', '') // replace substitui o caracter selecionado do primeiro paramentro pelo o caracter selecionado no segundo paramentro
+
+// selecionando o tempo na função posicaoRandomica de acordo com a dificuldade selecionada
+
+if(nivel === 'normal') {
+
+    criaMosquitoTempo = 1500
+
+} else if (nivel === 'dificil') {
+
+    criaMosquitoTempo = 1000
+
+} else if (nivel === 'chucknorris') {
+
+    criaMosquitoTempo = 750
+
+}
 
 // function que captura o tamanho da tela do usuário e adicionada ao Body do programa
 function ajustaTamanhoPalcoJogo() { 
@@ -12,9 +31,26 @@ function ajustaTamanhoPalcoJogo() {
 // executando a function
 ajustaTamanhoPalcoJogo()
 
-// function para criar posição randomica
-function posicaoRandomica() {
+// Cronometro
+var cronometro = setInterval(function() { // a cada 1 segundo inclementa -1 na variavel tempo
 
+    tempo -= 1
+
+    if (tempo < 0) {
+        clearInterval(cronometro) // exclui a execução desta função da memória da nossa aplicação
+        clearInterval(criaMosquito) 
+        window.location.href = 'vitoria.html'
+     } else {
+       document.getElementById('cronometro').innerHTML = tempo // innerHTML adiciona o valor da variavel tempo dentro da tag do id cronomtro
+     }
+
+}, 1000)
+
+// function para criar posição randomica
+ function posicaoRandomica(){ 
+
+     
+        
     //remover o mosquito anterior (caso exista)
 
     if(document.getElementById('mosquito')) {
@@ -23,7 +59,7 @@ function posicaoRandomica() {
         //adiciona um loop na variavel vidas que tem o valor de 1 após o mosquito sumir sem ser clicado vidas passa a valer 2 alterando a imagem para o coração vazio se vidas for maior do que 3 é Game Over
 
         if(vidas > 3 ) {
-            alert('Game Over')
+            window.location.href = 'fim_de_jogo.html' // após vidas maior que 4 o usuário é redirecionado para a página fim_de_jogo
 
         } else {
             document.getElementById('v' + vidas).src = "imagens/coracao_vazio.png"
@@ -55,12 +91,9 @@ function posicaoRandomica() {
     }
 
     document.body.appendChild(mosquito) // adicionando ao body da página
-}
 
-    // executa a função posicaorandomica a cada 1 segundo
-    setInterval(function() {
-        posicaoRandomica()
-    }, 1000)
+ }
+ 
     
 
     
@@ -102,6 +135,8 @@ function ladoAleatorio() {
         
     }
 }
+
+
 
 
     
